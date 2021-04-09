@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>疫情监控</title>
+    <script src="../static/js/jquery-1.11.1.min.js"></script>
+    <script src="../static/js/echarts.min.js"></script>
+    <script src="../static/js/china.js"></script>
+    <script src="../static/js/echarts-wordcloud.min.js"></script>
+    <link href="../static/css/main.css" rel="stylesheet" />
+    <link href="../static/css/r1.css" rel="stylesheet" />
+    <!-- 引入css样式表 -->
+    <script src="../static/js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="title">全国疫情实时追踪</div>
+    <div id="tim"></div>
+    <div id="l1">我是左1</div>
+    <div id="l2">我是左2</div>
+    <div id="c1">
+        <div class="num">
+            <h1></h1>
+        </div>
+        <div class="num">
+            <h1></h1>
+        </div>
+        <div class="num">
+            <h1></h1>
+        </div>
+        <div class="num">
+            <h1></h1>
+        </div>
+        <div class="txt">
+            <h2>累计确诊</h2>
+        </div>
+        <div class="txt">
+            <h2>剩余疑似</h2>
+        </div>
+        <div class="txt">
+            <h2>累计治愈</h2>
+        </div>
+        <div class="txt">
+            <h2>累计死亡</h2>
+        </div>
+    </div>
+    <div id="c2">我是中2</div>
+    <div id="r1">
+        <div id="f1">
+            <div>请添加你的姓名:</div>
+            <input type="text" v-model="name">
+            <div>请添加你的QQ邮箱:</div>
+            <input type="text" v-model="telephone">
+            <div>请选择你的省份：</div>
+            <select v-model="selected">
+                <option>河北</option>
+                <option>山西</option>
+                <option>辽宁</option>
+                <option>吉林</option>
+                <option>黑龙江</option>
+                <option>江苏</option>
+                <option>浙江</option>
+                <option>安徽</option>
+                <option>福建</option>
+                <option>江西</option>
+                <option>山东</option>
+                <option>河北</option>
+                <option>湖北</option>
+                <option>湖南</option>
+                <option>广东</option>
+                <option>海南</option>
+                <option>四川</option>
+                <option>贵州</option>
+                <option>云南</option>
+                <option>陕西</option>
+                <option>甘肃</option>
+                <option>青海</option>
+                <option>台湾</option>
+            </select>
+            <input type="submit" @click="submitForm">
+            <div v-if="isShow">{{ name+""+telephone+""+selected}}</div>
+        </div>
+    </div>
+        <div>
+
+            <br>
+        </div>
+    </div>
+
+    </div>
+    <!--<div id="r2">我是右2</div>-->
+    <script>
+        var app = new Vue({
+            el: '#r1',
+            data: {
+                selected: [],
+                name: "",
+                telephone: "",
+                isShow: false,
+            },
+            watch: {
+                selected: function(newTarget) {
+                    console.log("检测到省份添入！")
+                    this.$data.isShow = true
+                }
+            },
+
+            methods: {
+                submitForm() {
+                    console.log("数据已经准备提交！")
+                    var jsonString = "name=" + app.name + "&" + "phone=" + app.telephone + "&" + "privince=" + app.selected
+                    $.ajax({
+                        url: "/form",
+                        data: jsonString,
+                        type: "GET",
+                        success: function(data) {
+                            console.log("成功！")
+                            console.log(data)
+                            alert("恭喜你成功添加提醒成功！")
+                        },
+                        error: function(xhr, type, errorThrown) {}
+                    })
+                    this.$data.name = ""
+                    this.$data.telephone = ""
+                    this.$data.selected = []
+                }
+            },
+
+        })
+    </script>
+
+
+
+    <script src="../static/js/ec_center.js"></script>
+    <script src="../static/js/ec_left1.js"></script>
+    <script src="../static/js/ec_left2.js"></script>
+    <script src="../static/js/controller.js"></script>
+</body>
+
+</html>

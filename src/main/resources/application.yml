@@ -1,0 +1,24 @@
+
+spring:
+  datasource:
+    username: root
+    password: lihongfei
+    url: jdbc:mysql://localhost:3306/cov?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  mvc:
+    static-path-pattern: /static/**
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    password: 123456
+#    jedis:
+#      pool:
+#        max-active: 8
+#        max-wait: -1
+#        max-idle: 500
+#        min-idle: 0
+#    lettuce:
+#      shutdown-timeout: 0
+
